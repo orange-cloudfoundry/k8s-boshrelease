@@ -19,6 +19,16 @@ export PATH=$PATH:/var/vcap/packages/runtime-runc/bin
 export PATH=$PATH:/var/vcap/packages/containerd/bin
 export PATH=$PATH:/var/vcap/packages/socat/bin
 
+<% p('mirrors').each do |mirror,data| %>
+  <% if data %>
+    <% if data['tls'] %>
+        echo <%= data['tls']['ca'] %>  /var/vcap/packages/containerd/<%= mirror %>_ca.pem
+        echo <%= data['tls']['cert'] %> > /var/vcap/packages/containerd/<%= mirror %>_cert.pem
+        echo <%= data['tls']['key'] %> > /var/vcap/packages/containerd/<%= mirror %>_key.pem
+    <% end %>
+   <% end %>
+<% end %>
+
 case $1 in
   start)
     mkdir -p $RUN_DIR $DAT_DIR $STO_DIR
