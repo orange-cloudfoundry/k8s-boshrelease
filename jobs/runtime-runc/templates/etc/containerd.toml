@@ -17,7 +17,12 @@
     [plugins.cri.cni]
       conf_dir = "/var/vcap/jobs/net-<%= p('cni') %>/etc/cni/net.d"
       bin_dir = "/var/vcap/packages/containerd/bin"
-
+    [plugins.cri.registry]
+      [plugins.cri.registry.mirrors]
+        <% p('mirrors', []).each do |mirror| %>
+        [plugins.cri.registry.mirrors."<%= mirror['name']%>"]
+          endpoint = ["<%= mirror['url'] %>"]
+        <% end %>
 
 # persistent data location
 root = "/var/vcap/store/k8s/runtime-runc"

@@ -28,4 +28,13 @@ properties:
       The name of the CNI plugin used for network IPAM.  For example, if you are using
       the `net-flannel` job on this node, use "flannel" as your `cni` value.
 
+  mirrors:
+    description: |
+       A list of additional mirror . Use this option with caution; it has the possibility to horribly break your deployment.
+       Each item in the list must have a name and an url.
+    default: []
+    example: |
+      - name: "docker.io"
+        url: "https://mymirror.domain"
+
 # vim:ft=yaml
