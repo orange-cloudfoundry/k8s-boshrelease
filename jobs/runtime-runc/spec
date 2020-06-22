@@ -37,5 +37,17 @@ properties:
       - name: "docker.io"
         url: "https://mymirror.domain"
         insecure_skip_verify: true
+      - name: "myregistry.io"
+        url: "https://mymirror.domain"
+        insecure_skip_verify: false
+        auth:
+          username: "moi"
+          password: "mypassword"
+          auth: "my auth"
+          identitytoken: "mytoken"
+
+
+
+
 
 # vim:ft=yaml
