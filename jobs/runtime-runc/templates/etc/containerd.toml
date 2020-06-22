@@ -22,7 +22,7 @@
        <% p('mirrors', []).each do |mirror| %>
        <% if mirror['insecure_skip_verify']%
         [plugins.cri.registry.configs."<%= mirror['name']%>".tls]
-           insecure_skip_verify = true
+          <% if mirror['insecure_skip_verify']insecure_skip_verify = mirror['insecure_skip_verify']<%end %>
        <% end %>
        <% end %>
        <% p('mirrors', []).each do |mirror| %>
