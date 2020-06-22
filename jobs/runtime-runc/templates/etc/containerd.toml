@@ -18,6 +18,22 @@
       conf_dir = "/var/vcap/jobs/net-<%= p('cni') %>/etc/cni/net.d"
       bin_dir = "/var/vcap/packages/containerd/bin"
     [plugins.cri.registry]
+      [plugins.cri.registry.configs]
+       <% p('mirrors', []).each do |mirror| %>
+       <% if mirror['insecure_skip_verify']%
+        [plugins.cri.registry.configs."<%= mirror['name']%>".tls]
+           insecure_skip_verify = true
+       <% end %>
+       <% end %>
+       <% p('mirrors', []).each do |mirror| %>
+       <% if mirror['auth']%
+       [plugins.cri.registry.configs.auths."<%= mirror['name']%>"]
+         <% if mirror['auth'].['username']%>username = "mirror['auth'].['username']"<%end %>
+         <% if mirror['auth'].['password']%>password = "mirror['auth'].['password']"<%end %>
+         <% if mirror['auth'].['auth']%>auth = "mirror['auth'].['auth']" <%end %>
+         <% if mirror['auth'].['identitytoken']%>identitytoken = "mirror['auth'].['identitytoken']"<%end %>
+        <% end %>
+        <% end %>
       [plugins.cri.registry.mirrors]
         <% p('mirrors', []).each do |mirror| %>
         [plugins.cri.registry.mirrors."<%= mirror['name']%>"]
@@ -28,3 +44,5 @@
 root = "/var/vcap/store/k8s/runtime-runc"
 # runtime state information (MUST be ephemeral; cannot persist between reboots)
 state = "/var/vcap/data/k8s/runtime-runc"
+
+
