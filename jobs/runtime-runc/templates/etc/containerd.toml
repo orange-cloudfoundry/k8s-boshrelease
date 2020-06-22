@@ -19,19 +19,16 @@
       bin_dir = "/var/vcap/packages/containerd/bin"
     [plugins.cri.registry]
       [plugins.cri.registry.configs]
-       <% p('mirrors', []).each do |mirror| %>
-       <% if mirror['insecure_skip_verify']%
+       <% p('mirrors', []).each do |mirror| %><% if mirror['insecure_skip_verify'] %>
         [plugins.cri.registry.configs."<%= mirror['name']%>".tls]
-          <% if mirror['insecure_skip_verify']insecure_skip_verify = mirror['insecure_skip_verify']<%end %>
-       <% end %>
-       <% end %>
-       <% p('mirrors', []).each do |mirror| %>
-       <% if mirror['auth']%
+          insecure_skip_verify = <%= mirror['insecure_skip_verify']%>
+       <% end %><% end %>
+       <% p('mirrors', []).each do |mirror| %><% if mirror['auth'!=nil]%>
        [plugins.cri.registry.configs.auths."<%= mirror['name']%>"]
-         <% if mirror['auth'].['username']%>username = "mirror['auth'].['username']"<%end %>
-         <% if mirror['auth'].['password']%>password = "mirror['auth'].['password']"<%end %>
-         <% if mirror['auth'].['auth']%>auth = "mirror['auth'].['auth']" <%end %>
-         <% if mirror['auth'].['identitytoken']%>identitytoken = "mirror['auth'].['identitytoken']"<%end %>
+         <% if mirror['auth']['username']!=nil%>username = "<%= mirror['auth']['username']%>"<%end %>
+         <% if mirror['auth']['password']!=nil%>password = "<%= mirror['auth']['password']%>"<%end %>
+         <% if mirror['auth']['auth']!=nil%>auth = "<%= mirror['auth']['auth']%>" <%end %>
+         <% if mirror['auth']['identitytoken']!=nil%>identitytoken = "<%= mirror['auth']['identitytoken']%>"<%end %>
         <% end %>
         <% end %>
       [plugins.cri.registry.mirrors]
