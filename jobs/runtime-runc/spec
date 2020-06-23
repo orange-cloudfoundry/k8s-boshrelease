@@ -40,6 +40,10 @@ properties:
       - name: "myregistry.io"
         url: "https://mymirror.domain"
         insecure_skip_verify: false
+        tls:
+          ca: ""
+          cert: ""
+          key: ""
         auth:
           username: "moi"
           password: "mypassword"
