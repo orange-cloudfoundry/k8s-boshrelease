@@ -25,9 +25,9 @@
        <% end %><% end %>
        <% p('mirrors', []).each do |mirror| %><% if mirror['tls'!=nil]%>
               [plugins.cri.registry.configs."<%= mirror['name'].tls%>"]
-                <% if mirror['tls']['ca']!=nil%>ca_file =  /var/vcap/packages/containerd/"<%= mirror['name']_ca.pem%>"<%end %>
-                <% if mirror['tls']['cert']!=nil%>cert_file=  /var/vcap/packages/containerd/"<%= mirror['name']_ca.pem%>"<%end %>
-                <% if mirror['tls']['key']!=nil%>key_file =  /var/vcap/packages/containerd/"<%= mirror['name']_ca.pem%>" <%end %>
+                <% if mirror['tls']['ca']!=nil%>ca_file =  /var/vcap/packages/containerd/"<%= mirror['name']%>_ca.pem%>"<%end %>
+                <% if mirror['tls']['cert']!=nil%>cert_file=  /var/vcap/packages/containerd/"<%= mirror['name']%>_ca.pem%>"<%end %>
+                <% if mirror['tls']['key']!=nil%>key_file =  /var/vcap/packages/containerd/"<%= mirror['name']%>_ca.pem%>" <%end %>
                <% end %>
                <% end %>
        <% p('mirrors', []).each do |mirror| %><% if mirror['auth'!=nil]%>
