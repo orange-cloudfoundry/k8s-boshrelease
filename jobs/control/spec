@@ -228,7 +228,7 @@ properties:
       registry.
 
   images.kube-dns:
-    default: docker.io/coredns/coredns:1.2.2
+    default: docker.io/coredns/coredns:1.6.9
     description: |
       Where to pull the k8s BOSH release Docker image for kube-dns (CoreDNS).
       If you need to run in an air-gapped network, or just want to inspect the contents
