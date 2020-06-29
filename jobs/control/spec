@@ -90,6 +90,7 @@ templates:
   k8s/kube-proxy.yml:   k8s/kube-proxy.yml
   k8s/kube-dns.yml:     k8s/kube-dns.yml
   k8s/cert-manager.yml: k8s/cert-manager.yml
+  k8s/metrics-server.yml: k8s/metrics-server.yml
   k8s/cm-caissuer.yml:  k8s/cm-caissuer.yml
   k8s/dashboard.yml:    k8s/dashboard.yml
   k8s/bootstrap.yml:    k8s/bootstrap.yml
