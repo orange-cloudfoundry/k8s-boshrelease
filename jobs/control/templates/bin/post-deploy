@@ -82,6 +82,15 @@ kubectl apply -f $JOB_DIR/k8s/dashboard.yml
 echo "[$(date)] $BIN/$$: SKIPPING kubernetes-dashboard configuration..."
 <% end %>
 
+
+<% if p('metrics-server.enabled') %>
+echo "[$(date)] $BIN/$$: applying metrics-server configuration..."
+kubectl apply -f $JOB_DIR/k8s/metrics-server.yml
+<% else %>
+echo "[$(date)] $BIN/$$: SKIPPING metrics-server configuration..."
+<% end %>
+
+
 <% if p('cert-manager.enabled') %>
 echo "[$(date)] $BIN/$$: applying cert-manager configuration..."
 kubectl apply -f $JOB_DIR/k8s/cert-manager.yml

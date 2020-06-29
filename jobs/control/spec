@@ -416,6 +416,11 @@ properties:
 
       Make sure you understand the security implications of enabling this
       before you do so.
+  metrics-server.enabled:
+    default: false
+    description: |
+      Whether or not to install metrics-server on the newly
+      created cluster.
 
   cert-manager.enabled:
     default: false
