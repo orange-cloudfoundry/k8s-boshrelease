@@ -86,9 +86,12 @@ spec:
         image: k8s.gcr.io/metrics-server-amd64:v0.3.6
         imagePullPolicy: IfNotPresent
         args:
+        - /metrics-server
         - --cert-dir=/tmp
         - --secure-port=4443
         - --kubelet-insecure-tls
+        - --requestheader-client-ca-file=/var/vcap/jobs/control/tls/ca/cert.pem
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
         ports:
         - name: main-port
           containerPort: 4443

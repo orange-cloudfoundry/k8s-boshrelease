@@ -62,6 +62,7 @@ case $1 in
            --authorization-mode=Node,RBAC \
            --bind-address=0.0.0.0 \
            --client-ca-file=$JOB_DIR/tls/ca/cert.pem \
+           --enable-aggregator-routing=true \
            --enable-admission-plugins=NamespaceLifecycle,NodeRestriction,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \
            --etcd-cafile=$JOB_DIR/tls/ca/cert.pem \
            --etcd-certfile=$CERTS_DIR/api/cert.pem \
