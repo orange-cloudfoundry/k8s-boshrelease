@@ -34,10 +34,10 @@ properties:
        Each item in the list must have a name and an url and insecure_skip_verify_option.
     default: []
     example: |
-      - name: "docker.io"
+      docker.io:
         url: "https://mymirror.domain"
         insecure_skip_verify: true
-      - name: "myregistry.io"
+      myregistry.io:
         url: "https://mymirror.domain"
         insecure_skip_verify: false
         tls:

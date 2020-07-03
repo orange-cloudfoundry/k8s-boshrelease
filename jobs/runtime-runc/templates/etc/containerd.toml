@@ -19,29 +19,30 @@
       bin_dir = "/var/vcap/packages/containerd/bin"
     [plugins.cri.registry]
       [plugins.cri.registry.configs]
-       <% p('mirrors', []).each do |mirror| %><% if mirror['insecure_skip_verify'] %>
-        [plugins.cri.registry.configs."<%= mirror['name']%>".tls]
-          insecure_skip_verify = <%= mirror['insecure_skip_verify']%>
-       <% end %><% end %>
-       <% p('mirrors', []).each do |mirror| %><% if mirror['tls'!=nil]%>
-              [plugins.cri.registry.configs."<%= mirror['name'].tls%>"]
-                <% if mirror['tls']['ca']!=nil%>ca_file =  /var/vcap/packages/containerd/"<%= mirror['name']%>_ca.pem%>"<%end %>
-                <% if mirror['tls']['cert']!=nil%>cert_file=  /var/vcap/packages/containerd/"<%= mirror['name']%>_ca.pem%>"<%end %>
-                <% if mirror['tls']['key']!=nil%>key_file =  /var/vcap/packages/containerd/"<%= mirror['name']%>_ca.pem%>" <%end %>
+       <% p('mirrors').each do |mirror,data| %><% if data %><% if data['insecure_skip_verify'] %>
+        [plugins.cri.registry.configs."<%= mirror %>".tls]
+          insecure_skip_verify = <%= data['insecure_skip_verify']%>
+       <% end %><% end %><% end %>
+       <% p('mirrors').each do |mirror,data| %><% if data %><% if data['tls']%>
+              [plugins.cri.registry.configs."<%= mirror%>".tls]
+                ca_file =  /var/vcap/packages/containerd/"<%= mirror%>_ca.pem%>"
+                cert_file=  /var/vcap/packages/containerd/"<%= mirror%>_ca.pem%>"
+                key_file =  /var/vcap/packages/containerd/"<%= mirror%>_ca.pem%>"
                <% end %>
-               <% end %>
-       <% p('mirrors', []).each do |mirror| %><% if mirror['auth'!=nil]%>
-       [plugins.cri.registry.configs.auths."<%= mirror['name']%>"]
-         <% if mirror['auth']['username']!=nil%>username = "<%= mirror['auth']['username']%>"<%end %>
-         <% if mirror['auth']['password']!=nil%>password = "<%= mirror['auth']['password']%>"<%end %>
-         <% if mirror['auth']['auth']!=nil%>auth = "<%= mirror['auth']['auth']%>" <%end %>
-         <% if mirror['auth']['identitytoken']!=nil%>identitytoken = "<%= mirror['auth']['identitytoken']%>"<%end %>
-        <% end %>
+               <% end %><% end %>
+       <% p('mirrors').each do |mirror,data| %><% if data%><% if data['auth'] %>
+       [plugins.cri.registry.configs.auths."<%= mirror%>"]
+         <% if data['auth']['username']%>username = "<%= data['auth']['username']%>"<%end %>
+         <% if data['auth']['password']%>password = "<%= data['auth']['password']%>"<%end %>
+         <% if data['auth']['auth']%>auth = "<%= data['auth']['auth']%>"<%end %>
+         <% if data['auth']['identitytoken']%>identitytoken = "<%= data['auth']['identitytoken']%>"<%end %>
+        <% end %><% end %>
         <% end %>
       [plugins.cri.registry.mirrors]
-        <% p('mirrors', []).each do |mirror| %>
-        [plugins.cri.registry.mirrors."<%= mirror['name']%>"]
-          endpoint = ["<%= mirror['url'] %>"]
+        <% p('mirrors').each do |mirror,data| %><% if data%>
+        [plugins.cri.registry.mirrors."<%= mirror%>"]
+          endpoint = ["<%= data['url'] %>"]
+          <% end %>
         <% end %>
 
 # persistent data location
