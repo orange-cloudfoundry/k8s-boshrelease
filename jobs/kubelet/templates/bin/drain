@@ -27,7 +27,7 @@ if pgrep -x kubelet; then
 else
   echo "[$(date)] $BIN/$$: [$NODENAME] kubelet not running; skipping drain..."
 fi
-
+kubectl delete node $NODENAME --ignore-not-found
 # BOSH expects a literal '0' printed on stdout, to indicate
 # that the drain was successful.  Since we can't print anything
 # else to stdout, we redirect fd 3 to the terminal, and redirect
