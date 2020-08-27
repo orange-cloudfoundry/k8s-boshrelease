@@ -35,6 +35,7 @@ templates:
 
   bin/pre-start:    bin/pre-start
   bin/post-start:   bin/post-start
+  bin/pre-stop:     bin/pre-stop
   tls/ca/cert.pem:  tls/ca/cert.pem
   tls/ca/key.pem:   tls/ca/key.pem
 

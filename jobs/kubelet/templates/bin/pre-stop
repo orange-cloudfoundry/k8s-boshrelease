@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -eu
+
+JOB=kubelet
+LOG_DIR=/var/vcap/sys/log/$JOB
+JOB_DIR=/var/vcap/jobs/$JOB
+RUN_DIR=/var/vcap/sys/run/$JOB
+NEED_TO_DELETE_NODE=$RUN_DIR/need_to_delete_node
+
+if [[ "${BOSH_VM_NEXT_STATE}" = "delete" && \
+    "${BOSH_INSTANCE_NEXT_STATE}" = "delete" && \
+    "${BOSH_DEPLOYMENT_NEXT_STATE}" = "keep" ]]; then
+ touch $NEED_TO_DELETE_NODE
+else
+    rm -f NEED_TO_DELETE_NODE
+fi
