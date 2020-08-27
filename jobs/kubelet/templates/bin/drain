@@ -7,7 +7,9 @@ BIN=drain
 LOG_DIR=/var/vcap/sys/log/$JOB
 JOB_DIR=/var/vcap/jobs/$JOB
 DAT_DIR=/var/vcap/data/k8s/$JOB
+RUN_DIR=/var/vcap/sys/run/$JOB
 NODENAME=$($JOB_DIR/bin/nodename)
+NEED_TO_DELETE_NODE=$RUN_DIR/need_to_delete_node
 
 exec 3>&1
 exec >>$LOG_DIR/$BIN.log 2>&1
@@ -24,6 +26,10 @@ if pgrep -x kubelet; then
   echo "[$(date)] $BIN/$$: [$NODENAME] drain complete; the following pods remain (this may fail, and that's ok):"
   kubectl get pod -A || true
   echo "[$(date)] $BIN/$$: [$NODENAME] drain script exiting 0."
+  if [[ -f $NEED_TO_DELETE_NODE ]]; then
+      kubectl delete node $NODENAME --ignore-not-found
+      echo "[$(date)] $BIN/$$: [$NODENAME] delete node."
+  fi
 else
   echo "[$(date)] $BIN/$$: [$NODENAME] kubelet not running; skipping drain..."
 fi
