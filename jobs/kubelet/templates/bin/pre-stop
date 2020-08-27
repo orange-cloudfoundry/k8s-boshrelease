@@ -1,0 +1,16 @@
+#!/bin/bash
+NODENAME=$($JOB_DIR/bin/nodename)
+
+exec 3>&1
+exec >>$LOG_DIR/$BIN.log 2>&1
+
+# put kube-* in our path
+export PATH=$PATH:/var/vcap/packages/k8s/bin
+export KUBECONFIG=$DAT_DIR/automaton.kubeconfig
+
+if [[ "${BOSH_VM_NEXT_STATE}" == "delete" &&  "${BOSH_INSTANCE_NEXT_STATE}" == "delete" && BOSH_DEPLOYMENT_NEXT_STATE = keep ]] ; then
+  kubectl delete node $NODENAME --ignore-not-found
+fi
+
+exit 0
+
