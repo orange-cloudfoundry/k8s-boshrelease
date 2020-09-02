@@ -27,6 +27,8 @@ builds:
     version: 1.18.8-orange-4
   7cbb4c9c-e7e7-486f-41b0-012f75394d47:
     version: 1.18.8-build.1
+  90ad25f0-30b5-4948-4b18-67fba6b84a70:
+    version: 1.18.8-orange-6
   a274fb0d-8dc8-4d0f-7806-196219350a19:
     version: 1.14.0
   a429bbcb-28b8-4d24-6a95-e9532baba063:
