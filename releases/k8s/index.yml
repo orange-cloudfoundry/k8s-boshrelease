@@ -23,6 +23,8 @@ builds:
     version: 1.14.0-build.5
   66964d83-ba2e-431b-66f3-2631a128f2a5:
     version: 1.12.0
+  6e89117a-eb52-46e6-5b83-eebf02960fef:
+    version: 1.18.8-orange-4
   7cbb4c9c-e7e7-486f-41b0-012f75394d47:
     version: 1.18.8-build.1
   a274fb0d-8dc8-4d0f-7806-196219350a19:
